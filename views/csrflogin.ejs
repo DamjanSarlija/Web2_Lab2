@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Ovo je stranica za prijavu</h1>
+    <p>Validni "korisnički računi" su:</p>
+    <p>username: korisnik1, password: lozinka1</p>
+    <p>username: korisnik2, password: lozinka2</p>
+    <br>
+    <form action = "/login", method = "POST">
+        <input type = "text", placeholder = "username", name = "username">
+        <input type = "password", placeholder = "password", name = "password">
+        <input type = "submit">
+    </form>
+    <br>
+    <br>
+    <h2>Napomena</h2>
+    <p>Ako se testiranjem XSS ranjivosti stranica dovede u stanje neupotrebljivosti (npr. skriptom koja mijenja vrijednost document.body.textContent), moguće je normalno stanje vratiti korištenjem relativne putanje: /izbrisiSve</p>
+    <p>Ona briše sve podatke iz tablice baze podataka korištene kod demonstracije ranjivosti na XSS napad.</p>
+    <p>Putanja za brisanje svih podataka iz tablice korištene za CSRF: /csrf/izbrisiSve</p>
+    <p>Putanja za brisanje svih podataka iz tablice korištene za nesigurnu pohranu osjetljivih podataka: /izbrisiSveVjerodajnice</p>
+    <p>Sve navedene putanje koriste GET zahtjev pa je brisanje moguće izvesti direktno, putem URL-a.</p>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src = "/scripts/script.js"></script>
+</head>
+<html>
+    <body>
+        <form action = "/logout", method = "POST">
+            <input type = "submit" value = "Logout">
+        </form>
+        <h1>2. laboratorijska vježba</h1>
+        <p>U ovoj laboratorijskoj vježbi, demonstrirat ću dvije ranjivosti - XSS i CSRF.</p>
+        <br>
+        <h2>1. Demonstracija XSS ranjivosti/napada</h2>
+        <br>
+        <form action = "/promijeniStatusXSS" method = "POST">
+            <input type = "submit" value = "Promijeni status ranjivosti">
+        </form>
+        <div>
+            <p id = "statusRanjivostiTekst">Ranjivost <%= statusXSS %></p>
+        </div>
+        <form action = "/upis" method = "POST">
+            <input type = text placeholder = "Unesite poruku po želji" id = "inputTeksta" name = "tekstObjave" required>
+            
+            <input type = submit>
+        </form>
+        <br>
+        <h3>Popis objava/poruka</h3>
+        <form action = "/izbrisiSve", method = "GET">
+            <input type = submit value = "Izbrisi sve">
+        </form>
+        <div id = "content">
+            <% objave.forEach(objava => { %>
+                <div>
+                    <p><%- objava.sadrzaj %></p>
+                </div>
+            <% }); %>
+        </div>
+        <br>
+        <h2>2. Demonstracija CSRF ranjivosti/napada</h2>
+        <a href = "/csrf">Web stranica za uplatu novca</a>
+        <br>
+        <br>
+        <h2>3. Demonstracija ranjivosti nesigurne pohrane osjetljivih podataka</h2>
+        
+        <p>Ovo je imitacija mogućeg obrasca za registraciju te nema veze sa stvarnom login funkcionalnošću ove stranice.</p>
+        <p>Potrebno je unijeti korisničko ime i lozinku. Ispod obrasca za unos, prikazan je prijepis podataka iz baze, točno onako kako su zapisani u bazi podataka. To su podaci koje napadač vidi ako dobije pristup bazi podataka.</p>
+        <p>Ako je ranjivost uključena u trenutku predaje podataka, lozinka će biti spremljena u čistom tekstu. Ako je ranjivost isključena, bit će spremljen sažetak (hash) lozinke.</p>
+        <br>
+        <form action = "/promijeniStatusNesigurna" method = "POST">
+            <input type = "submit" value = "Promijeni status ranjivosti">
+        </form>
+        <div>
+            <p id = "statusRanjivostiTekst">Ranjivost <%= statusNesigurna %></p>
+        </div>
+        <form action = "/upisVjerodajnica", method = "POST">
+            <input type = "text", name = "username", placeholder = "username" required>
+            <input type = "password", name = "password", placeholder = "password" required>
+            <input type = "submit">
+        </form>
+        <br>
+        <h3>Prijepis baze podataka</h3>
+        <form action = "/izbrisiSveVjerodajnice", method = "GET">
+            <input type = submit value = "Izbrisi sve">
+        </form>
+        <div id = "content">
+            <% retciVjerodajnice.forEach(redak => { %>
+                <div>
+                    <p>ID: <%= redak.id %></p>
+                    <p>Korisničko ime: <%= redak.username %></p>
+                    <p>Lozinka: <%= redak.password %></p>
+                    <p>-------------------------------------------------</p>
+                </div>
+            <% }); %>
+        </div>
+
+
+    </body>
+    
+</html>

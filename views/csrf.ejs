@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSRF</title>
+    <script src = "/scripts/script.js"></script>
+</head>
+<body>
+    
+    <form action = "/", method = "GET">
+        <input type = "submit" value = "Home">
+    </form>
+    <br>
+    <h1 id = "naslov">CSRF demonstracija</h1>
+    <p>Ovo je stranica za uplaćivanje proizvoljnog novčanog iznosa na proizvoljni korisnički račun.</p>
+    <p>Potrebno je unijeti željenu svotu i željenog primatelja te predati odabir pritiskom na gumb.</p>
+    <p>Na dnu stranice je simulacija poštanskog sandučića te poruke s malicioznom poveznicom ugrađenom u sliku.</p>
+    <br>
+    <button onclick = "upravljajCSRFTokenom()">
+        Promijeni status ranjivosti
+    </button>
+    <form action = "/csrf/ranjivostOnOff" method = "POST" id = "ranjivostOnOff">
+    </form>
+    <div>
+        <p id = "statusRanjivostiTekst">Ranjivost <%= statusRanjivosti %></p>
+    </div>
+    
+    <form action = "/csrf/placanje", method = "GET" id = "transakcijskaForma">
+        <input type = "number", placeholder = "Unesite svotu novca", name = "svota" required>
+        <input type = "text", placeholder = "Unesite primatelja", name = "primatelj" required>
+        <input type = "submit", value = "Pošalji novac">
+    </form>
+    <br>
+    <h2>Popis provedenih transakcija</h2>
+    <form action = "/csrf/izbrisiSve", method = "GET">
+        <input type = submit value = "Izbrisi sve">
+    </form>
+    <div>
+        <% transakcije.forEach(transakcija => { %>
+            <div>
+                <p><%= transakcija.posiljatelj %> šalje <%= transakcija.primatelj %> <%= transakcija.svota %> eura. </p>
+            </div>
+        <% }); %>
+    </div>
+    <br>
+    <h2>Popis upozorenja na pokušaje krađe</h2>
+    <form action = "/csrf/izbrisiSvaUpozorenja", method = "GET">
+        <input type = submit value = "Izbrisi sve">
+    </form>
+    <div>
+        <% upozorenja.forEach(upozorenje => { %>
+            <div>
+                <p>OPREZ! <%= upozorenje.napadac %> je pokušao ukrasti od <%= upozorenje.zrtva %> <%= upozorenje.svota %> eura. CSRF napad blokiran.</p>
+            </div>
+        <% }); %>
+    </div>
+    <br>
+    <h2>Poštanski sandučić s malicioznom porukom</h2>
+    <p>From: Napadač</p>
+    <p>Text: Čestitamo! Osvojili ste novi model Samsung Galaxy S23! Kliknite na sliku kako biste preuzeli nagradu.</p>
+    <a href = "http://localhost:3000/csrf/placanje?svota=10000&primatelj=haker">
+        <img src = "/images/slika_mobitel.avif">
+    </a>
+    
+
+</body>
+</html>
