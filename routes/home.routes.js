@@ -12,12 +12,11 @@ router.get("/", async (req, res) => {
         }
     
         const client = new Client({
-            user: "postgres",
-            password: "bazepodataka",
-            host: "localhost",
-            port: "5432",
-            database: "Web_Lab2_Database"
-        })
+            connectionString: process.env.DATABASE_URL,
+            ssl: {
+                rejectUnauthorized: false
+            }
+        });        
     
         await client.connect();
         
@@ -44,12 +43,11 @@ router.get("/", async (req, res) => {
 router.post("/upis", async (req, res) => {
     try {
         const client = new Client({
-            user: "postgres",
-            password: "bazepodataka",
-            host: "localhost",
-            port: "5432",
-            database: "Web_Lab2_Database"
-        })
+            connectionString: process.env.DATABASE_URL,
+            ssl: {
+                rejectUnauthorized: false
+            }
+        });
     
         await client.connect();
     
@@ -83,12 +81,11 @@ router.post("/upis", async (req, res) => {
 router.get("/izbrisiSve", async (req, res) => {
     try {
         const client = new Client({
-            user: "postgres",
-            password: "bazepodataka",
-            host: "localhost",
-            port: "5432",
-            database: "Web_Lab2_Database"
-        })
+            connectionString: process.env.DATABASE_URL,
+            ssl: {
+                rejectUnauthorized: false
+            }
+        });
     
         await client.connect();
         await client.query("DELETE FROM objave")
@@ -153,12 +150,11 @@ router.post("/promijeniStatusNesigurna", (req, res) => {
 router.post("/upisVjerodajnica", async (req, res) => {
     try {
         const client = new Client({
-            user: "postgres",
-            password: "bazepodataka",
-            host: "localhost",
-            port: "5432",
-            database: "Web_Lab2_Database"
-        })
+            connectionString: process.env.DATABASE_URL,
+            ssl: {
+                rejectUnauthorized: false
+            }
+        });
     
         var lozinkaZaUpis = ""
     
@@ -182,12 +178,11 @@ router.post("/upisVjerodajnica", async (req, res) => {
 router.get("/izbrisiSveVjerodajnice", async (req, res) => {
     try {
         const client = new Client({
-            user: "postgres",
-            password: "bazepodataka",
-            host: "localhost",
-            port: "5432",
-            database: "Web_Lab2_Database"
-        })
+            connectionString: process.env.DATABASE_URL,
+            ssl: {
+                rejectUnauthorized: false
+            }
+        });
     
         await client.connect();
         await client.query("DELETE FROM vjerodajnice")
