@@ -9,12 +9,11 @@ router.get("/", async (req, res) => {
         }
         
         const client = new Client({
-            user: "postgres",
-            password: "bazepodataka",
-            host: "localhost",
-            port: "5432",
-            database: "Web_Lab2_Database"
-        })
+            connectionString: process.env.DATABASE_URL,
+            ssl: {
+                rejectUnauthorized: false
+            }
+        });
     
         await client.connect();
     
@@ -42,12 +41,11 @@ router.get("/placanje", async (req, res) => {
             res.redirect("/")
         } else {
             const client = new Client({
-                user: "postgres",
-                password: "bazepodataka",
-                host: "localhost",
-                port: "5432",
-                database: "Web_Lab2_Database"
-            })
+            connectionString: process.env.DATABASE_URL,
+            ssl: {
+                rejectUnauthorized: false
+            }
+        });
         
             await client.connect();
     
@@ -104,12 +102,11 @@ router.get("/dohvatiPodatkeOSesiji", (req, res) => {
 router.get("/izbrisiSve", async (req, res) => {
     try {
         const client = new Client({
-            user: "postgres",
-            password: "bazepodataka",
-            host: "localhost",
-            port: "5432",
-            database: "Web_Lab2_Database"
-        })
+            connectionString: process.env.DATABASE_URL,
+            ssl: {
+                rejectUnauthorized: false
+            }
+        });
     
         await client.connect();
         await client.query("DELETE FROM transakcije")
@@ -126,12 +123,11 @@ router.get("/izbrisiSve", async (req, res) => {
 router.get("/izbrisiSvaUpozorenja", async (req, res) => {
     try {
         const client = new Client({
-            user: "postgres",
-            password: "bazepodataka",
-            host: "localhost",
-            port: "5432",
-            database: "Web_Lab2_Database"
-        })
+            connectionString: process.env.DATABASE_URL,
+            ssl: {
+                rejectUnauthorized: false
+            }
+        });
     
         await client.connect();
         await client.query("DELETE FROM upozorenja")
